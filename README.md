@@ -2,7 +2,16 @@
 
 A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH) plugin that gives a text-only agent "eyes": it registers a `vision` model tool that reads an image file and answers through the **DeepSeek-V4-Flash-Vision-Exp** vision model — no manual model switching.
 
-## What it does
+一个 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（DSH）插件，让纯文本 Agent 拥有「眼睛」：它注册一个 `vision` 模型工具，读取图片文件并通过 **DeepSeek-V4-Flash-Vision-Exp** 视觉模型作答——无需手动切换模型。
+
+- [English](#english)
+- [中文](#中文)
+
+---
+
+## English
+
+### What it does
 
 Registers one model tool:
 
@@ -10,13 +19,13 @@ Registers one model tool:
 
 Because the current chat model may not accept image input, calling `vision` lets the agent "see" on demand.
 
-## Requirements
+### Requirements
 
 - A running DeepSeek Harness with:
   - `fs`, `attachments`, and `llm` host services (standard in DSH).
   - The `deepseek-official` provider with the `deepseek-v4-flash-vision-exp` model available (i.e. a configured `DEEPSEEK_API_KEY`).
 
-## Install
+### Install
 
 The plugin is a single import-free file that a preset can load by relative path.
 
@@ -30,14 +39,14 @@ The plugin is a single import-free file that a preset can load by relative path.
 
 3. Start a session on that preset. The agent now has the `vision` tool.
 
-## Usage
+### Usage
 
 The agent calls the tool itself when it needs to look at an image:
 
 - `vision(image_path="screenshot.png", prompt="What error message is shown?")`
 - `vision(image_path="photo.jpg")` (defaults to a full detailed description)
 
-## How it works
+### How it works
 
 `tool-vision` consumes host services only and publishes nothing, so the row needs no `isolate` realm:
 
@@ -46,6 +55,56 @@ The agent calls the tool itself when it needs to look at an image:
 3. `llm.stream` sends a user message (`text` + `image` block) to `deepseek-official` / `deepseek-v4-flash-vision-exp`.
 4. The streamed text is returned to the agent.
 
-## License
+---
+
+## 中文
+
+### 功能
+
+注册一个模型工具：
+
+- `vision(image_path, prompt?)` — 读取 PNG/JPEG/WebP/GIF 文件，把它连同可选的提示词一起发给 `deepseek-v4-flash-vision-exp`，返回纯文本描述或回答。
+
+因为当前对话模型可能不接受图像输入，调用 `vision` 就能让 Agent 按需「看图」。
+
+### 前置条件
+
+- 一个运行中的 DeepSeek Harness，需具备：
+  - `fs`、`attachments`、`llm` 宿主服务（DSH 标配）。
+  - `deepseek-official` 提供者下可用 `deepseek-v4-flash-vision-exp` 模型（即已配置 `DEEPSEEK_API_KEY`）。
+
+### 安装
+
+插件是一个无需 import 的单文件，preset 可用相对路径加载它。
+
+1. 把 `tool-vision.js` 复制到你的 agent preset 目录（例如 `~/.dsh/.agent-presets/<你的-preset>/`）。
+2. 在该 preset 的 `agent.cordis.yml` 里加一行：
+
+```yaml
+- id: tool-vision
+  name: ./tool-vision.js
+```
+
+3. 在该 preset 上开启会话，Agent 即拥有 `vision` 工具。
+
+### 用法
+
+Agent 需要看图时会自行调用：
+
+- `vision(image_path="screenshot.png", prompt="报错信息是什么？")`
+- `vision(image_path="photo.jpg")`（默认做完整详细描述）
+
+### 原理
+
+`tool-vision` 只消费宿主服务、不发布任何服务，因此该行无需 `isolate` realm：
+
+1. `fs` 读取图片字节（PNG/JPEG/WebP/GIF）。
+2. `attachments.saveImage` 提交一个持久化图片引用。
+3. `llm.stream` 把用户消息（`text` + `image` 块）发给 `deepseek-official` / `deepseek-v4-flash-vision-exp`。
+4. 流式返回的文本交给 Agent。
+
+---
+
+## License / 许可证
 
 MIT
