@@ -1,8 +1,8 @@
 # dsh-tool-vision
 
-A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH) plugin that gives a text-only agent "eyes": it registers a `vision` model tool that reads an image file and answers through the **DeepSeek-V4-Flash-Vision-Exp** vision model — no manual model switching.
+A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH) plugin that solves a common DSH pain point: using the vision model normally means manually switching models per session. It registers a `vision` tool so a text-only agent can call **DeepSeek-V4-Flash-Vision-Exp** to see images on demand — no manual switching.
 
-一个 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（DSH）插件，让纯文本 Agent 拥有「眼睛」：它注册一个 `vision` 模型工具，读取图片文件并通过 **DeepSeek-V4-Flash-Vision-Exp** 视觉模型作答——无需手动切换模型。
+一个 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（DSH）插件，解决 DSH 使用视觉模型的一大痛点：通常需要手动切换模型。它注册一个 `vision` 工具，让纯文本 Agent 按需调用 **DeepSeek-V4-Flash-Vision-Exp** 看图——无需手动切换。
 
 - [English](#english)
 - [中文](#中文)
