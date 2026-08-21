@@ -55,6 +55,18 @@ The agent calls the tool itself when it needs to look at an image:
 3. `llm.stream` sends a user message (`text` + `image` block) to `deepseek-official` / `deepseek-v4-flash-vision-exp`.
 4. The streamed text is returned to the agent.
 
+### Example
+
+![test image](test.jpg)
+
+```text
+vision(image_path="test.jpg", prompt="Describe this image in 2-3 sentences.")
+```
+
+Returns:
+
+> A rainy, neon-lit cityscape at night, dominated by towering skyscrapers glowing with vibrant pink, green, and blue lights. In the foreground, two silhouetted figures stand on a bridge, gazing out at the sprawling metropolis. The scene has a moody, atmospheric quality, enhanced by the falling rain and reflections on the wet surfaces.
+
 ---
 
 ## 中文
@@ -102,6 +114,18 @@ Agent 需要看图时会自行调用：
 2. `attachments.saveImage` 提交一个持久化图片引用。
 3. `llm.stream` 把用户消息（`text` + `image` 块）发给 `deepseek-official` / `deepseek-v4-flash-vision-exp`。
 4. 流式返回的文本交给 Agent。
+
+### 示例
+
+![test image](test.jpg)
+
+```text
+vision(image_path="test.jpg", prompt="用两三句话描述这张图。")
+```
+
+返回：
+
+> 这是一幅赛博朋克风格的夜景插画，密集的摩天大楼闪烁着五颜六色的霓虹灯光，未来感十足。风雪交加的天桥上，两个渺小的身影并肩站着，静静眺望着远方这座冰冷而迷人的城市。暖黄色的街灯与冷色调的雨雪相互映衬，营造出既孤独又唯美的氛围。
 
 ---
 
